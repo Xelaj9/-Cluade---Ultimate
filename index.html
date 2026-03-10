@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Ultimate Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080810;
+  --surface: #0f0f1a;
+  --card: #14142000;
+  --card-solid: #141420;
+  --border: #1e1e35;
+  --border2: #2a2a48;
+  --gold: #d4a855;
+  --gold2: #f0c878;
+  --blue: #5b8dee;
+  --blue2: #7ea8ff;
+  --green: #43c98a;
+  --pink: #e07090;
+  --purple: #9b72ef;
+  --text: #e4e4f4;
+  --muted: #7070a0;
+  --muted2: #5050780;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── STARFIELD ── */
+.stars {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: 
+    radial-gradient(ellipse 900px 500px at 20% 10%, rgba(91,141,238,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 400px at 80% 80%, rgba(155,114,239,0.07) 0%, transparent 70%);
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  text-align: center;
+  padding: 70px 20px 50px;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--border2);
+  background: rgba(212,168,85,0.08);
+  color: var(--gold);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 2.5px; text-transform: uppercase;
+  padding: 6px 18px; border-radius: 100px;
+  margin-bottom: 28px;
+  animation: fadeUp .5s ease both;
+}
+.hero h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(34px, 7vw, 68px);
+  font-weight: 700;
+  line-height: 1.05;
+  animation: fadeUp .5s .1s ease both; opacity: 0;
+}
+.hero h1 .g { background: linear-gradient(135deg, var(--gold), var(--gold2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero h1 .b { background: linear-gradient(135deg, var(--blue), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-sub {
+  margin-top: 18px; color: var(--muted);
+  font-size: 17px; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.7;
+  animation: fadeUp .5s .2s ease both; opacity: 0;
+}
+
+/* ── COMPARISON TABLE ── */
+.compare-wrap {
+  position: relative; z-index: 1;
+  max-width: 1000px; margin: 0 auto 60px;
+  padding: 0 20px;
+  animation: fadeUp .5s .3s ease both; opacity: 0;
+}
+.compare-title {
+  text-align: center;
+  font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 20px; font-weight: 600;
+}
+.compare-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.compare-table th {
+  padding: 18px 20px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 13px; font-weight: 700;
+  text-align: center;
+  border-bottom: 1px solid var(--border2);
+}
+.compare-table th:first-child { text-align: left; width: 200px; }
+.th-chat { color: var(--blue2); }
+.th-desktop { color: var(--green); }
+.th-cowork { color: var(--gold); }
+.th-code { color: var(--purple); }
+
+.compare-table td {
+  padding: 14px 20px;
+  font-size: 14px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+}
+.compare-table td:first-child {
+  text-align: left; color: var(--text);
+  font-weight: 600; font-size: 14px;
+}
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+.ck { color: var(--green); font-size: 16px; }
+.cx { color: #3a3a5a; font-size: 16px; }
+.cm { color: var(--gold); font-size: 13px; font-weight: 700; }
+
+/* ── NAV ── */
+.nav-wrap {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(8,8,16,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+}
+.nav-inner {
+  max-width: 1000px; margin: 0 auto;
+  display: flex; gap: 4px;
+  overflow-x: auto;
+  padding: 12px 0;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.ntab {
+  flex-shrink: 0;
+  padding: 8px 20px;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.ntab:hover { color: var(--text); border-color: var(--border2); }
+.ntab.active { background: rgba(255,255,255,0.07); color: var(--text); border-color: var(--border2); }
+.ntab.active.t-chat { background: rgba(91,141,238,0.12); color: var(--blue2); border-color: rgba(91,141,238,0.4); }
+.ntab.active.t-desktop { background: rgba(67,201,138,0.12); color: var(--green); border-color: rgba(67,201,138,0.4); }
+.ntab.active.t-cowork { background: rgba(212,168,85,0.12); color: var(--gold); border-color: rgba(212,168,85,0.4); }
+.ntab.active.t-code { background: rgba(155,114,239,0.12); color: var(--purple); border-color: rgba(155,114,239,0.4); }
+.ntab.active.t-tips { background: rgba(224,112,144,0.12); color: var(--pink); border-color: rgba(224,112,144,0.4); }
+
+/* ── CONTENT ── */
+.content {
+  position: relative; z-index: 1;
+  max-width: 1000px; margin: 0 auto;
+  padding: 40px 20px 100px;
+}
+
+.sec { display: none; animation: fadeUp .35s ease; }
+.sec.active { display: block; }
+
+/* ── PRODUCT HEADER ── */
+.prod-header {
+  display: flex; align-items: center; gap: 20px;
+  margin-bottom: 36px;
+  padding: 28px 32px;
+  border-radius: 20px;
+  border: 1px solid;
+  position: relative; overflow: hidden;
+}
+.prod-header::before {
+  content: '';
+  position: absolute; inset: 0;
+  opacity: .06;
+}
+.ph-chat { border-color: rgba(91,141,238,0.4); background: rgba(91,141,238,0.06); }
+.ph-chat::before { background: radial-gradient(circle at 0 0, var(--blue), transparent 60%); }
+.ph-desktop { border-color: rgba(67,201,138,0.4); background: rgba(67,201,138,0.06); }
+.ph-desktop::before { background: radial-gradient(circle at 0 0, var(--green), transparent 60%); }
+.ph-cowork { border-color: rgba(212,168,85,0.4); background: rgba(212,168,85,0.06); }
+.ph-cowork::before { background: radial-gradient(circle at 0 0, var(--gold), transparent 60%); }
+.ph-code { border-color: rgba(155,114,239,0.4); background: rgba(155,114,239,0.06); }
+.ph-code::before { background: radial-gradient(circle at 0 0, var(--purple), transparent 60%); }
+
+.ph-icon {
+  width: 60px; height: 60px;
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; flex-shrink: 0;
+  position: relative;
+}
+.ph-icon-chat { background: rgba(91,141,238,0.2); }
+.ph-icon-desktop { background: rgba(67,201,138,0.2); }
+.ph-icon-cowork { background: rgba(212,168,85,0.2); }
+.ph-icon-code { background: rgba(155,114,239,0.2); }
+
+.ph-info h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 26px; font-weight: 700;
+  margin-bottom: 4px;
+}
+.ph-info p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+.ph-badge {
+  margin-left: auto; flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.badge-free { background: rgba(67,201,138,0.15); color: var(--green); border: 1px solid rgba(67,201,138,0.3); }
+.badge-free-paid { background: rgba(91,141,238,0.15); color: var(--blue2); border: 1px solid rgba(91,141,238,0.3); }
+.badge-paid { background: rgba(212,168,85,0.15); color: var(--gold); border: 1px solid rgba(212,168,85,0.3); }
+.badge-dev { background: rgba(155,114,239,0.15); color: var(--purple); border: 1px solid rgba(155,114,239,0.3); }
+
+/* ── GRID ── */
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap: 18px; margin-bottom: 24px; }
+
+/* ── CARD ── */
+.card {
+  background: var(--card-solid);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: border-color .2s, transform .2s;
+  position: relative; overflow: hidden;
+}
+.card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.card-accent-top { position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.c-blue .card-accent-top { background: linear-gradient(90deg, var(--blue), transparent); }
+.c-green .card-accent-top { background: linear-gradient(90deg, var(--green), transparent); }
+.c-gold .card-accent-top { background: linear-gradient(90deg, var(--gold), transparent); }
+.c-purple .card-accent-top { background: linear-gradient(90deg, var(--purple), transparent); }
+.c-pink .card-accent-top { background: linear-gradient(90deg, var(--pink), transparent); }
+
+.card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 17px; font-weight: 700;
+  margin-bottom: 10px;
+}
+.card p { color: var(--muted); font-size: 14px; line-height: 1.75; }
+.card-icon { font-size: 26px; margin-bottom: 12px; }
+
+/* ── STEPS ── */
+.steps { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.step {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: border-color .2s;
+}
+.step:hover { border-color: var(--border2); }
+.sn {
+  width: 26px; height: 26px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+  flex-shrink: 0;
+}
+.sn-blue { background: rgba(91,141,238,0.2); color: var(--blue2); }
+.sn-green { background: rgba(67,201,138,0.2); color: var(--green); }
+.sn-gold { background: rgba(212,168,85,0.2); color: var(--gold); }
+.sn-purple { background: rgba(155,114,239,0.2); color: var(--purple); }
+.sn-pink { background: rgba(224,112,144,0.2); color: var(--pink); }
+
+.step strong { display: block; font-size: 14px; margin-bottom: 2px; }
+.step span { color: var(--muted); font-size: 13px; }
+
+/* ── CODE BOX ── */
+.codebox {
+  background: #0a0a14;
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 14px;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: var(--green);
+  overflow-x: auto;
+  white-space: pre;
+  line-height: 1.7;
+}
+.codebox .cmt { color: var(--muted); }
+.codebox .cmd { color: var(--blue2); }
+.codebox .str { color: var(--gold); }
+
+/* ── EXAMPLE ── */
+.ex {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-left: 3px solid;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-top: 14px;
+}
+.ex-blue { border-left-color: var(--blue); }
+.ex-gold { border-left-color: var(--gold); }
+.ex-green { border-left-color: var(--green); }
+.ex-purple { border-left-color: var(--purple); }
+.ex-pink { border-left-color: var(--pink); }
+
+.ex-lbl { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
+.ex-blue .ex-lbl { color: var(--blue2); }
+.ex-gold .ex-lbl { color: var(--gold); }
+.ex-green .ex-lbl { color: var(--green); }
+.ex-purple .ex-lbl { color: var(--purple); }
+.ex-pink .ex-lbl { color: var(--pink); }
+.ex p { font-size: 14px; color: var(--text); line-height: 1.7; }
+code {
+  background: rgba(255,255,255,0.08);
+  color: var(--gold2);
+  padding: 2px 8px; border-radius: 5px;
+  font-size: 13px; font-family: 'Courier New', monospace;
+}
+
+/* ── SECTION HEADER ── */
+.sec-h {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  font-weight: 700; color: var(--muted);
+  margin: 36px 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ── TIP BOX ── */
+.tip {
+  border-radius: 14px;
+  padding: 20px 24px;
+  margin-bottom: 18px;
+  display: flex; gap: 14px;
+  align-items: flex-start;
+}
+.tip-gold { background: rgba(212,168,85,0.08); border: 1px solid rgba(212,168,85,0.25); }
+.tip-blue { background: rgba(91,141,238,0.08); border: 1px solid rgba(91,141,238,0.25); }
+.tip-green { background: rgba(67,201,138,0.08); border: 1px solid rgba(67,201,138,0.25); }
+.tip-pink { background: rgba(224,112,144,0.08); border: 1px solid rgba(224,112,144,0.25); }
+.tip-purple { background: rgba(155,114,239,0.08); border: 1px solid rgba(155,114,239,0.25); }
+.tip-i { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+.tip-body strong { display: block; margin-bottom: 5px; font-size: 15px; }
+.tip-body p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+.tip-gold .tip-body strong { color: var(--gold); }
+.tip-blue .tip-body strong { color: var(--blue2); }
+.tip-green .tip-body strong { color: var(--green); }
+.tip-pink .tip-body strong { color: var(--pink); }
+.tip-purple .tip-body strong { color: var(--purple); }
+
+/* ── WARNING ── */
+.warn {
+  background: rgba(224,112,144,0.07);
+  border: 1px solid rgba(224,112,144,0.25);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-top: 20px;
+}
+.warn h4 { color: var(--pink); font-size: 14px; margin-bottom: 10px; }
+.warn ul { padding-left: 18px; color: var(--muted); line-height: 2.1; font-size: 14px; }
+
+/* ── TAGS ── */
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.tag {
+  padding: 4px 14px; border-radius: 100px;
+  font-size: 12px; border: 1px solid var(--border2);
+  color: var(--muted);
+}
+
+/* ── ANIM ── */
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(16px); }
+  to { opacity:1; transform: translateY(0); }
+}
+
+/* MOBILE */
+@media(max-width:600px) {
+  .prod-header { flex-direction: column; align-items: flex-start; }
+  .ph-badge { margin-left: 0; }
+  .compare-table { font-size: 12px; }
+  .compare-table th, .compare-table td { padding: 10px 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">⚡ Ultimate Guide</div>
+  <h1>รู้จัก <span class="g">Claude</span><br>อย่าง<span class="b">ผู้เชี่ยวชาญ</span></h1>
+  <p class="hero-sub">ครอบคลุมทุกผลิตภัณฑ์ — Claude Chat, Desktop, Cowork, Code<br>พร้อมเทคนิคที่ทำให้คุณใช้งานได้ดีกว่าคนทั่วไป 10 เท่า</p>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="compare-wrap">
+  <div class="compare-title">⚡ เปรียบเทียบ 4 โหมดของ Claude ทั้งหมด</div>
+  <table class="compare-table">
+    <thead>
+      <tr>
+        <th>ฟีเจอร์</th>
+        <th class="th-chat">🌐 Chat<br><span style="font-size:11px;opacity:.7">เว็บ/มือถือ</span></th>
+        <th class="th-desktop">🖥️ Desktop<br><span style="font-size:11px;opacity:.7">แอปวินโดวส์/Mac</span></th>
+        <th class="th-cowork">🤝 Cowork<br><span style="font-size:11px;opacity:.7">ใน Desktop App</span></th>
+        <th class="th-code">⌨️ Code<br><span style="font-size:11px;opacity:.7">Terminal/IDE</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>ใช้งานฟรี</td><td class="ck">✓</td><td class="ck">✓</td><td class="cx">✗ ต้อง Pro+</td><td class="cx">✗ ต้องสมาชิก</td></tr>
+      <tr><td>ไม่ต้องติดตั้ง</td><td class="ck">✓</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td></tr>
+      <tr><td>ใช้ผ่านมือถือ</td><td class="ck">✓</td><td class="cx">✗</td><td class="cx">✗</td><td class="cx">✗</td></tr>
+      <tr><td>เข้าถึงไฟล์ในเครื่อง</td><td class="cx">✗</td><td class="cm">อัปโหลดเท่านั้น</td><td class="ck">✓ โดยตรง</td><td class="ck">✓ เต็มรูปแบบ</td></tr>
+      <tr><td>ทำงานหลายขั้นตอนอัตโนมัติ</td><td class="cx">✗</td><td class="cx">✗</td><td class="ck">✓</td><td class="ck">✓</td></tr>
+      <tr><td>รันโค้ดได้</td><td class="cm">จำกัด</td><td class="cm">จำกัด</td><td class="ck">✓ VM</td><td class="ck">✓ เต็มรูปแบบ</td></tr>
+      <tr><td>Shortcut ทั่วทั้งระบบ</td><td class="cx">✗</td><td class="ck">✓ Alt+Space</td><td class="ck">✓</td><td class="cx">✗</td></tr>
+      <tr><td>จัดการ Git/GitHub</td><td class="cx">✗</td><td class="cx">✗</td><td class="cm">จำกัด</td><td class="ck">✓ เต็มรูปแบบ</td></tr>
+      <tr><td>เหมาะกับใคร</td><td>ทุกคน</td><td>Power User</td><td>นักธุรกิจ</td><td>นักพัฒนา</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-inner">
+    <button class="ntab active t-chat" onclick="show('chat',this,'t-chat')">🌐 Claude Chat</button>
+    <button class="ntab t-desktop" onclick="show('desktop',this,'t-desktop')">🖥️ Desktop App</button>
+    <button class="ntab t-cowork" onclick="show('cowork',this,'t-cowork')">🤝 Cowork</button>
+    <button class="ntab t-code" onclick="show('code',this,'t-code')">⌨️ Claude Code</button>
+    <button class="ntab t-tips" onclick="show('tips',this,'t-tips')">🔥 เทคนิคขั้นเทพ</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ═══════════ CHAT ═══════════ -->
+  <div class="sec active" id="chat">
+    <div class="prod-header ph-chat">
+      <div class="ph-icon ph-icon-chat">🌐</div>
+      <div class="ph-info">
+        <h2 style="color:var(--blue2)">Claude Chat (เว็บ/มือถือ)</h2>
+        <p>claude.ai ใช้ผ่านเบราว์เซอร์ได้ทันที ไม่ต้องติดตั้งอะไร เหมาะทุกคน</p>
+      </div>
+      <div class="ph-badge badge-free">ฟรี</div>
+    </div>
+
+    <div class="sec-h">วิธีเข้าใช้งาน</div>
+    <div class="steps">
+      <div class="step"><div class="sn sn-blue">1</div><div><strong>เปิดเบราว์เซอร์</strong><span>ไปที่ claude.ai บนคอมหรือมือถือ</span></div></div>
+      <div class="step"><div class="sn sn-blue">2</div><div><strong>ล็อกอิน (ฟรี)</strong><span>สมัครด้วยอีเมล หรือ Google Account</span></div></div>
+      <div class="step"><div class="sn sn-blue">3</div><div><strong>เลือกโมเดล</strong><span>Sonnet 4.6 สำหรับงานทั่วไป / Opus 4.6 สำหรับงานซับซ้อน</span></div></div>
+      <div class="step"><div class="sn sn-blue">4</div><div><strong>เริ่มพิมพ์</strong><span>ถามได้เลย หรืออัปโหลดไฟล์ก่อนถาม</span></div></div>
+    </div>
+
+    <div class="sec-h">ฟีเจอร์สำคัญใน Chat</div>
+    <div class="grid2">
+      <div class="card c-blue">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">📁</div>
+        <h3>Projects</h3>
+        <p>สร้างโปรเจกต์แยกสำหรับแต่ละหัวข้อ Claude จำบริบทโปรเจกต์ไว้ตลอด ไม่ต้องอธิบายซ้ำทุกครั้ง</p>
+        <div class="ex ex-blue"><div class="ex-lbl">ใช้งาน</div><p>สร้าง Project → เพิ่มไฟล์ → ตั้ง Custom Instructions → สนทนาได้เลย</p></div>
+      </div>
+      <div class="card c-blue">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🔍</div>
+        <h3>Web Search</h3>
+        <p>ค้นหาข้อมูลจากอินเทอร์เน็ตแบบ Real-time ข้อมูลล่าสุด ข่าว ราคา สถิติ</p>
+        <div class="ex ex-blue"><div class="ex-lbl">ตัวอย่าง</div><p><code>"ราคา GPU RTX 5090 วันนี้เท่าไร"</code></p></div>
+      </div>
+      <div class="card c-blue">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🧪</div>
+        <h3>Deep Research</h3>
+        <p>วิจัยหัวข้อซับซ้อนแบบละเอียด Claude ค้นหาหลายแหล่งแล้วสรุปรายงานให้</p>
+        <div class="ex ex-blue"><div class="ex-lbl">ตัวอย่าง</div><p><code>"ทำ Deep Research เรื่องเทรนด์ AI ใน Healthcare ปี 2025"</code></p></div>
+      </div>
+      <div class="card c-blue">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">⚡</div>
+        <h3>Artifacts</h3>
+        <p>สร้างโค้ด, HTML, React App, SVG, Diagram ที่รันได้ทันทีในหน้าต่างด้านข้าง</p>
+        <div class="ex ex-blue"><div class="ex-lbl">ตัวอย่าง</div><p><code>"สร้าง Dashboard แสดงข้อมูลยอดขายเป็น React App"</code></p></div>
+      </div>
+      <div class="card c-blue">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🔗</div>
+        <h3>Connectors</h3>
+        <p>เชื่อมต่อ Gmail, Google Calendar, Google Drive, Canva และอีกกว่า 100 แอป</p>
+        <div class="ex ex-blue"><div class="ex-lbl">เปิดใช้</div><p>Settings → Connectors → เลือกแอปที่ต้องการ</p></div>
+      </div>
+      <div class="card c-blue">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">💾</div>
+        <h3>Memory</h3>
+        <p>Claude จำข้อมูลส่วนตัวของคุณข้ามบทสนทนา เช่น ชื่อ อาชีพ ความชอบ</p>
+        <div class="ex ex-blue"><div class="ex-lbl">เปิดใช้</div><p>Settings → Memory → เปิด "Generate memory from chat history"</p></div>
+      </div>
+    </div>
+
+    <div class="tip tip-blue">
+      <div class="tip-i">💡</div>
+      <div class="tip-body">
+        <strong>เบราว์เซอร์ vs แอปมือถือต่างกันอย่างไร?</strong>
+        <p>เบราว์เซอร์: เข้าถึงง่าย ฟีเจอร์ครบ แต่แท็บอาจรีเฟรชถ้าเปิดนานมาก | แอปมือถือ: พกพาสะดวก มี Voice Mode แต่หน้าจอเล็กกว่า ทั้งคู่ใช้โมเดลเดียวกัน</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ DESKTOP ═══════════ -->
+  <div class="sec" id="desktop">
+    <div class="prod-header ph-desktop">
+      <div class="ph-icon ph-icon-desktop">🖥️</div>
+      <div class="ph-info">
+        <h2 style="color:var(--green)">Claude Desktop App</h2>
+        <p>แอปพลิเคชันสำหรับ Windows และ macOS ใช้ฟรี แต่ให้ประสิทธิภาพดีกว่าเบราว์เซอร์</p>
+      </div>
+      <div class="ph-badge badge-free">ฟรี</div>
+    </div>
+
+    <div class="sec-h">ดาวน์โหลดและติดตั้ง</div>
+    <div class="steps">
+      <div class="step"><div class="sn sn-green">1</div><div><strong>ดาวน์โหลด</strong><span>ไปที่ claude.ai/download หรือ anthropic.com/claude/download</span></div></div>
+      <div class="step"><div class="sn sn-green">2</div><div><strong>ติดตั้ง</strong><span>Windows: ไฟล์ .exe/.msix | Mac: ไฟล์ .dmg</span></div></div>
+      <div class="step"><div class="sn sn-green">3</div><div><strong>ล็อกอิน</strong><span>ใช้บัญชี claude.ai เดียวกัน ไม่ต้องสมัครใหม่</span></div></div>
+      <div class="step"><div class="sn sn-green">4</div><div><strong>ตั้ง Shortcut</strong><span>Alt+Space (Windows) หรือ ⌥+Space (Mac) เรียก Claude ได้ทันที</span></div></div>
+    </div>
+
+    <div class="sec-h">ข้อดีเหนือกว่าเบราว์เซอร์</div>
+    <div class="grid2">
+      <div class="card c-green">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">⚡</div>
+        <h3>เร็วกว่า 3-4 เท่า</h3>
+        <p>เปิดแอปพร้อมใช้ใน 3 วินาที เทียบกับเบราว์เซอร์ที่ใช้ 10-12 วินาที</p>
+      </div>
+      <div class="card c-green">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🎯</div>
+        <h3>Global Shortcut</h3>
+        <p>กด Alt+Space จากแอปไหนก็ได้ เรียก Claude ขึ้นมาทันทีโดยไม่ต้องสลับหน้าต่าง</p>
+      </div>
+      <div class="card c-green">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">💾</div>
+        <h3>ใช้ RAM น้อยกว่า 5 เท่า</h3>
+        <p>แอปใช้ RAM เพียง ~200-400MB ส่วนเบราว์เซอร์อาจสูงถึง 1.2-2GB ต่อแท็บ</p>
+      </div>
+      <div class="card c-green">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🔌</div>
+        <h3>MCP Extensions</h3>
+        <p>ติดตั้ง Extensions ด้วยคลิกเดียว เพื่อเชื่อมต่อกับเครื่องมือต่างๆ แบบ Native</p>
+      </div>
+      <div class="card c-green">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">📂</div>
+        <h3>Drag &amp; Drop ไฟล์</h3>
+        <p>ลากไฟล์จากเครื่องมาวางในแชทได้โดยตรง สะดวกกว่าการอัปโหลดในเบราว์เซอร์</p>
+      </div>
+      <div class="card c-green">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🛡️</div>
+        <h3>ไม่มีปัญหา Tab Refresh</h3>
+        <p>แท็บเบราว์เซอร์รีเฟรชทำให้สูญเสียบทสนทนา แต่แอป Desktop ไม่มีปัญหานี้</p>
+      </div>
+    </div>
+
+    <div class="sec-h">Browser vs Desktop — เลือกอะไรดี?</div>
+    <div class="tip tip-blue">
+      <div class="tip-i">🌐</div>
+      <div class="tip-body">
+        <strong>ใช้เบราว์เซอร์เมื่อ...</strong>
+        <p>ใช้งานเบาๆ เป็นครั้งคราว, ต้องการแชร์ลิงก์บทสนทนา, ใช้หลายอุปกรณ์, ไม่อยากติดตั้งโปรแกรม</p>
+      </div>
+    </div>
+    <div class="tip tip-green">
+      <div class="tip-i">🖥️</div>
+      <div class="tip-body">
+        <strong>ใช้ Desktop App เมื่อ...</strong>
+        <p>ใช้งาน Claude ทุกวัน, ทำงานกับไฟล์หนัก, ต้องการ Global Shortcut, ต้องการรัน Cowork, อยากประหยัด RAM และต้องการความเร็ว</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ COWORK ═══════════ -->
+  <div class="sec" id="cowork">
+    <div class="prod-header ph-cowork">
+      <div class="ph-icon ph-icon-cowork">🤝</div>
+      <div class="ph-info">
+        <h2 style="color:var(--gold)">Claude Cowork</h2>
+        <p>AI Agent สำหรับคนที่ไม่ใช่นักพัฒนา ทำงานหลายขั้นตอนอัตโนมัติในเครื่องของคุณ</p>
+      </div>
+      <div class="ph-badge badge-paid">Pro+ เท่านั้น</div>
+    </div>
+
+    <div class="tip tip-gold">
+      <div class="tip-i">🤖</div>
+      <div class="tip-body">
+        <strong>Cowork คืออะไรกันแน่?</strong>
+        <p>แทนที่จะคุยกับ Claude ทีละข้อความ Cowork ให้ Claude ทำงานซับซ้อนหลายขั้นตอนแบบอัตโนมัติในเครื่องของคุณ เหมือนมีผู้ช่วยนั่งทำงานให้ บอกแค่ <em>"ต้องการอะไร"</em> แล้วกลับมาดูงานที่เสร็จแล้ว</p>
+      </div>
+    </div>
+
+    <div class="sec-h">ความต้องการระบบ</div>
+    <div class="grid2">
+      <div class="card c-gold"><div class="card-accent-top"></div><div class="card-icon">💻</div><h3>Windows หรือ macOS</h3><p>ต้องใช้ Claude Desktop App (Windows 10+ หรือ macOS) ไม่รองรับเว็บหรือมือถือ</p></div>
+      <div class="card c-gold"><div class="card-accent-top"></div><div class="card-icon">💳</div><h3>แผน Pro ($20/เดือน) ขึ้นไป</h3><p>ใช้ได้กับ Pro, Max, Team, Enterprise เท่านั้น ผู้ใช้ฟรีใช้ไม่ได้</p></div>
+    </div>
+
+    <div class="sec-h">วิธีเริ่มใช้ Cowork</div>
+    <div class="steps">
+      <div class="step"><div class="sn sn-gold">1</div><div><strong>เปิด Claude Desktop App</strong><span>ต้องเป็น Desktop App เท่านั้น</span></div></div>
+      <div class="step"><div class="sn sn-gold">2</div><div><strong>คลิกแท็บ "Cowork" หรือ "Tasks"</strong><span>อยู่ถัดจากแท็บ Chat ด้านบน</span></div></div>
+      <div class="step"><div class="sn sn-gold">3</div><div><strong>เลือกโฟลเดอร์ที่ต้องการให้ Claude เข้าถึง</strong><span>ลากโฟลเดอร์มาวาง หรือคลิกเลือก</span></div></div>
+      <div class="step"><div class="sn sn-gold">4</div><div><strong>อธิบายงานที่ต้องการ</strong><span>บอกผลลัพธ์ที่ต้องการ Claude จะวางแผนและทำให้</span></div></div>
+      <div class="step"><div class="sn sn-gold">5</div><div><strong>ดูหรือปล่อยให้ทำงาน</strong><span>ติดตาม progress ได้ตลอด หรือไปทำอย่างอื่นแล้วค่อยกลับมา</span></div></div>
+    </div>
+
+    <div class="sec-h">ตัวอย่างงานที่ Cowork ทำได้</div>
+    <div class="grid2">
+      <div class="card c-gold">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">📊</div>
+        <h3>วิเคราะห์ข้อมูลจำนวนมาก</h3>
+        <p>ประมวลผล Excel ขนาดใหญ่, สรุปข้อมูล, สร้างรายงาน Word อัตโนมัติ</p>
+        <div class="ex ex-gold"><div class="ex-lbl">คำสั่งตัวอย่าง</div><p><code>"โฟลเดอร์นี้มีใบเสร็จ 50 ไฟล์ ดึงวันที่และยอดเงินแล้วรวมใส่ Excel ให้ด้วย"</code></p></div>
+      </div>
+      <div class="card c-gold">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">📁</div>
+        <h3>จัดการและจัดเรียงไฟล์</h3>
+        <p>จัดระเบียบไฟล์ตามประเภท, เปลี่ยนชื่อไฟล์เป็นระบบ, ย้ายไฟล์</p>
+        <div class="ex ex-gold"><div class="ex-lbl">คำสั่งตัวอย่าง</div><p><code>"จัดเรียงรูปภาพในโฟลเดอร์ Downloads ตามปีและเดือน"</code></p></div>
+      </div>
+      <div class="card c-gold">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🔬</div>
+        <h3>วิจัยอัตโนมัติ</h3>
+        <p>ค้นหาข้อมูลออนไลน์ วิเคราะห์ และสรุปรายงานโดยอัตโนมัติ</p>
+        <div class="ex ex-gold"><div class="ex-lbl">คำสั่งตัวอย่าง</div><p><code>"วิจัยคู่แข่ง 5 ราย เปรียบเทียบราคาและฟีเจอร์ สรุปเป็น Word"</code></p></div>
+      </div>
+      <div class="card c-gold">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">⏰</div>
+        <h3>ตั้งเวลาทำงานอัตโนมัติ</h3>
+        <p>ใช้ /schedule ให้ Cowork ทำงานซ้ำๆ อัตโนมัติตามเวลาที่กำหนด</p>
+        <div class="ex ex-gold"><div class="ex-lbl">วิธีใช้</div><p>พิมพ์ <code>/schedule</code> แล้วระบุงานและเวลา</p></div>
+      </div>
+    </div>
+
+    <div class="tip tip-green">
+      <div class="tip-i">🛡️</div>
+      <div class="tip-body">
+        <strong>ความปลอดภัยของ Cowork</strong>
+        <p>Cowork ทำงานใน Virtual Machine (VM) ที่แยกออกมา ไฟล์ของคุณไม่ถูกส่งออกไปอินเทอร์เน็ต และก่อนลบไฟล์ใดๆ จะต้องขอการยืนยันจากคุณทุกครั้ง</p>
+      </div>
+    </div>
+
+    <div class="sec-h">Cowork vs Claude Code ต่างกันอย่างไร?</div>
+    <div class="grid2">
+      <div class="card c-gold">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🤝</div>
+        <h3>Cowork — สำหรับทุกคน</h3>
+        <p>Interface กราฟิก ใช้ง่าย ปลอดภัยกว่า ทำงานใน VM เหมาะสำหรับนักธุรกิจ นักวิเคราะห์ ที่ไม่ถนัด Terminal</p>
+      </div>
+      <div class="card c-purple">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">⌨️</div>
+        <h3>Claude Code — สำหรับนักพัฒนา</h3>
+        <p>Terminal-based ควบคุมได้เต็มรูปแบบ Git-aware รัน Test ได้ เหมาะสำหรับ Developer ที่ต้องการพลังสูงสุด</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CODE ═══════════ -->
+  <div class="sec" id="code">
+    <div class="prod-header ph-code">
+      <div class="ph-icon ph-icon-code">⌨️</div>
+      <div class="ph-info">
+        <h2 style="color:var(--purple)">Claude Code</h2>
+        <p>เครื่องมือ Agentic Coding สำหรับนักพัฒนา รันใน Terminal/IDE ด้วยพลังสูงสุด</p>
+      </div>
+      <div class="ph-badge badge-dev">สำหรับนักพัฒนา</div>
+    </div>
+
+    <div class="tip tip-purple">
+      <div class="tip-i">💡</div>
+      <div class="tip-body">
+        <strong>Claude Code คืออะไร?</strong>
+        <p>AI ที่เข้าใจโค้ดทั้งโปรเจกต์ (สูงสุด 200,000 tokens) แก้บัค, สร้างฟีเจอร์, รัน test, จัดการ Git ได้จาก Terminal โดยตรง เหมือนมี Senior Developer นั่งคู่กัน</p>
+      </div>
+    </div>
+
+    <div class="sec-h">ติดตั้ง Claude Code</div>
+    <div class="codebox"><span class="cmt"># ติดตั้งผ่าน npm</span>
+<span class="cmd">npm install -g @anthropic-ai/claude-code</span>
+
+<span class="cmt"># เริ่มใช้งาน</span>
+<span class="cmd">claude</span>
+
+<span class="cmt"># หรือในโฟลเดอร์โปรเจกต์</span>
+<span class="cmd">cd myproject && claude</span></div>
+
+    <div class="tip tip-gold" style="margin-top:18px">
+      <div class="tip-i">⚠️</div>
+      <div class="tip-body">
+        <strong>ความต้องการ</strong>
+        <p>Node.js 18+ | Windows 10+ (ต้องมี Git for Windows) | macOS 12+ | ต้องการ Claude subscription</p>
+      </div>
+    </div>
+
+    <div class="sec-h">ฟีเจอร์หลักของ Claude Code</div>
+    <div class="grid2">
+      <div class="card c-purple">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🧠</div>
+        <h3>เข้าใจ Codebase ทั้งโปรเจกต์</h3>
+        <p>รองรับ context สูงสุด 200,000 tokens สามารถเข้าใจโครงสร้างโค้ดทั้งโปรเจกต์พร้อมกัน</p>
+      </div>
+      <div class="card c-purple">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🔧</div>
+        <h3>Git-Aware</h3>
+        <p>รู้ว่าคุณอยู่ Branch ไหน มีการเปลี่ยนแปลงอะไร และสามารถ Commit, PR ได้อัตโนมัติ</p>
+      </div>
+      <div class="card c-purple">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🤖</div>
+        <h3>Parallel Sub-Agents</h3>
+        <p>สร้าง Agent หลายตัวทำงานพร้อมกัน เช่น Frontend + Backend + Testing พร้อมกัน</p>
+      </div>
+      <div class="card c-purple">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">📝</div>
+        <h3>CLAUDE.md — "รัฐธรรมนูญ" ของโปรเจกต์</h3>
+        <p>ไฟล์ที่ Claude อ่านทุกครั้งที่เริ่ม session กำหนด coding standards, architecture, conventions</p>
+        <div class="ex ex-purple"><div class="ex-lbl">ตัวอย่างเนื้อหา CLAUDE.md</div><p>ภาษา: TypeScript / Framework: Next.js / ห้ามใช้ any / Test ทุก function ด้วย Jest</p></div>
+      </div>
+      <div class="card c-purple">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">⚡</div>
+        <h3>Custom Slash Commands</h3>
+        <p>สร้างคำสั่งลัดสำหรับ workflow ของทีม เช่น <code>/review-pr</code>, <code>/deploy</code></p>
+      </div>
+      <div class="card c-purple">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🔗</div>
+        <h3>MCP Integration</h3>
+        <p>เชื่อมต่อกับ Jira, GitHub, Slack, Google Drive, Database และอื่นๆ ผ่าน MCP protocol</p>
+      </div>
+    </div>
+
+    <div class="sec-h">คำสั่งที่ใช้บ่อย</div>
+    <div class="codebox"><span class="cmt"># รัน bash โดยตรง (เร็วกว่าขอผ่าน Claude)</span>
+<span class="cmd">!git status</span>
+<span class="cmd">!npm test</span>
+
+<span class="cmt"># Pipe ข้อมูลเข้า Claude</span>
+<span class="cmd">git diff | claude -p <span class="str">"อธิบายการเปลี่ยนแปลงนี้"</span></span>
+<span class="cmd">cat error.log | claude -p <span class="str">"วิเคราะห์ error นี้"</span></span>
+
+<span class="cmt"># ตั้งชื่อ session</span>
+<span class="cmd">/rename api-migration</span>
+
+<span class="cmt"># Resume session เก่า</span>
+<span class="cmd">claude --resume api-migration</span></div>
+
+    <div class="tip tip-purple">
+      <div class="tip-i">🔥</div>
+      <div class="tip-body">
+        <strong>Pro Tip: GitHub PR Auto-Review</strong>
+        <p>รัน <code>/install-github-app</code> แล้ว Claude จะ review PR ทุกอันอัตโนมัติ หา bugs และ security issues โดยไม่ต้องร้องขอ</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TIPS ═══════════ -->
+  <div class="sec" id="tips">
+    <div class="prod-header" style="border-color:rgba(224,112,144,0.4);background:rgba(224,112,144,0.06)">
+      <div class="ph-icon" style="background:rgba(224,112,144,0.2);font-size:28px">🔥</div>
+      <div class="ph-info">
+        <h2 style="color:var(--pink)">เทคนิคขั้นเทพ</h2>
+        <p>วิธีที่ทำให้คุณใช้ Claude ได้ดีกว่าคนทั่วไป — ตั้งแต่พื้นฐานถึง Expert</p>
+      </div>
+    </div>
+
+    <div class="sec-h">🎯 เทคนิคการเขียน Prompt ที่ดี</div>
+
+    <div class="tip tip-pink">
+      <div class="tip-i">1️⃣</div>
+      <div class="tip-body">
+        <strong>บอก Role + Context + งาน</strong>
+        <p>แทนที่จะพูดสั้นๆ ให้บอกว่าคุณเป็นใคร ทำไมถึงต้องการ และต้องการอะไรกันแน่<br>
+        ❌ <code>"เขียนอีเมล"</code><br>
+        ✅ <code>"ฉันเป็น Sales Manager ต้องการอีเมลขอโทษลูกค้า VIP ที่ส่งสินค้าล่าช้า 3 วัน โทนทางการแต่อบอุ่น ความยาวไม่เกิน 150 คำ"</code></p>
+      </div>
+    </div>
+
+    <div class="tip tip-pink">
+      <div class="tip-i">2️⃣</div>
+      <div class="tip-body">
+        <strong>ใช้ Format Tag เพื่อควบคุม Output</strong>
+        <p>บอก Claude ว่าต้องการ output รูปแบบไหน<br>
+        <code>"ตอบเป็นข้อๆ ไม่เกิน 5 ข้อ"</code> | <code>"ตอบเป็นตาราง"</code> | <code>"ตอบสั้นๆ ใน 2 ประโยค"</code> | <code>"ใช้รูปแบบ JSON"</code></p>
+      </div>
+    </div>
+
+    <div class="tip tip-pink">
+      <div class="tip-i">3️⃣</div>
+      <div class="tip-body">
+        <strong>Chain of Thought — ขอให้คิดก่อนตอบ</strong>
+        <p>สำหรับคำถามซับซ้อน พิมพ์เพิ่มว่า <code>"คิดทีละขั้นตอนก่อนตอบ"</code> หรือ <code>"อธิบายวิธีคิดก่อน"</code> — ผลลัพธ์จะแม่นยำขึ้นมาก</p>
+      </div>
+    </div>
+
+    <div class="tip tip-pink">
+      <div class="tip-i">4️⃣</div>
+      <div class="tip-body">
+        <strong>ขอตัวเลือกหลายแบบ</strong>
+        <p>แทนที่จะรอคำตอบเดียว ลองขอ 3 แบบแล้วเลือก<br>
+        <code>"ให้ 3 ตัวเลือกในการตอบปัญหานี้ พร้อม trade-off ของแต่ละแบบ"</code></p>
+      </div>
+    </div>
+
+    <div class="tip tip-pink">
+      <div class="tip-i">5️⃣</div>
+      <div class="tip-body">
+        <strong>ใช้ Projects + Custom Instructions</strong>
+        <p>สร้าง Project และตั้ง Instructions เช่น <code>"ฉันเป็นนักการตลาด ตอบเสมอเป็นภาษาไทย ใช้คำง่าย หลีกเลี่ยงศัพท์เทคนิค"</code> — Claude จะจำทุกครั้งในโปรเจกต์นั้น</p>
+      </div>
+    </div>
+
+    <div class="tip tip-pink">
+      <div class="tip-i">6️⃣</div>
+      <div class="tip-body">
+        <strong>ให้ตัวอย่างที่ต้องการ (Few-Shot)</strong>
+        <p>ถ้าต้องการรูปแบบเฉพาะ ให้ตัวอย่างก่อน<br>
+        <code>"ฉันต้องการรูปแบบนี้: [ตัวอย่าง] ตอนนี้ทำให้ฉันด้วยข้อมูลนี้: [ข้อมูล]"</code></p>
+      </div>
+    </div>
+
+    <div class="tip tip-pink">
+      <div class="tip-i">7️⃣</div>
+      <div class="tip-body">
+        <strong>ขอวิจารณ์งานตัวเองก่อน</strong>
+        <p>หลังได้คำตอบแล้วลองพิมพ์ว่า<br>
+        <code>"ทบทวนคำตอบของตัวเอง มีจุดไหนที่อาจผิดหรือปรับปรุงได้บ้าง?"</code></p>
+      </div>
+    </div>
+
+    <div class="tip tip-pink">
+      <div class="tip-i">8️⃣</div>
+      <div class="tip-body">
+        <strong>Extended Thinking — เปิดโหมดคิดลึก</strong>
+        <p>สำหรับปัญหา logic ซับซ้อน, คณิตศาสตร์, หรือการวางกลยุทธ์ เปิด Extended Thinking ใน Settings — Claude จะ "คิด" ก่อนตอบ ผลลัพธ์แม่นยำขึ้นมาก</p>
+      </div>
+    </div>
+
+    <div class="sec-h">🚀 เทคนิคขั้นสูง (Power User)</div>
+
+    <div class="grid2">
+      <div class="card c-pink">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🔄</div>
+        <h3>Iterative Refinement</h3>
+        <p>ไม่ต้องสั่งใหม่ทั้งหมด ใช้ follow-up เพื่อปรับ: <code>"ทำให้สั้นลง 50%"</code>, <code>"เปลี่ยนโทนเป็นทางการ"</code>, <code>"เพิ่ม emoji"</code></p>
+      </div>
+      <div class="card c-pink">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">📋</div>
+        <h3>Template Prompts</h3>
+        <p>สร้าง Template ที่ใช้บ่อยในโน้ต แล้ว Copy-Paste ทุกครั้ง ประหยัดเวลามาก</p>
+      </div>
+      <div class="card c-pink">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🧩</div>
+        <h3>แบ่งงานเป็นชิ้นเล็ก</h3>
+        <p>งานใหญ่ให้แบ่งทีละส่วน: โครงร่างก่อน → เนื้อหาทีละส่วน → รวมและปรับ — ดีกว่าขอครั้งเดียว</p>
+      </div>
+      <div class="card c-pink">
+        <div class="card-accent-top"></div>
+        <div class="card-icon">🎭</div>
+        <h3>Role Playing เพื่อผลลัพธ์ดีขึ้น</h3>
+        <p><code>"ตอบในฐานะ CFO ที่มีประสบการณ์ 20 ปี"</code> หรือ <code>"เล่นเป็น Devil's Advocate วิจารณ์ idea นี้"</code></p>
+      </div>
+    </div>
+
+    <div class="warn">
+      <h4>⚠️ สิ่งที่ควรระวัง</h4>
+      <ul>
+        <li>Claude <strong>ไม่มีความจำข้ามแชท</strong> — แต่ละบทสนทนาเริ่มใหม่ ใช้ Projects เพื่อรักษา context</li>
+        <li>อาจ <strong>ผิดพลาดได้</strong> โดยเฉพาะข้อมูลล่าสุดหรือตัวเลขเฉพาะ — ตรวจสอบสำคัญเสมอ</li>
+        <li>ข้อมูลด้าน <strong>กฎหมาย การแพทย์ การเงิน</strong> ใช้เป็นข้อมูลประกอบ ไม่ใช่คำแนะนำสุดท้าย</li>
+        <li>Claude <strong>ไม่สามารถโทร, ส่ง SMS</strong> หรือทำธุรกรรมจริงได้ด้วยตัวเอง</li>
+        <li>บทสนทนายาวๆ อาจทำให้ Claude "ลืม" ต้นบทสนทนา — เริ่ม chat ใหม่หรือสรุป context ใหม่</li>
+      </ul>
+    </div>
+
+    <div class="tip tip-gold">
+      <div class="tip-i">🏆</div>
+      <div class="tip-body">
+        <strong>สรุป: จะเป็น Expert ได้อย่างรวดเร็ว</strong>
+        <p>1) ใช้ Projects + Custom Instructions 2) บอก Context ให้ชัดเสมอ 3) Iterate อย่าสั่งใหม่ 4) ลองเปิด Extended Thinking สำหรับงานซับซ้อน 5) ใช้ Desktop App แทนเบราว์เซอร์สำหรับงานหนัก 6) ลอง Cowork สำหรับงานที่ต้องทำหลายขั้นตอน</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /content -->
+
+<script>
+function show(id, btn, cls) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.ntab').forEach(t => { t.classList.remove('active','t-chat','t-desktop','t-cowork','t-code','t-tips'); });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active', cls);
+}
+</script>
+</body>
+</html>
